@@ -6,5 +6,9 @@
         <repository location="https://download.eclipse.org/eclipse/updates/4.23"/>
         <unit id="org.eclipse.sdk.ide" version="4.23.0.I20220308-0310"/>
     </location>
+
+    <!-- Include this nested target if multi-platform bundles need to be included -->
+    <!-- It seems that order of locations is important and this one must come last! -->
+    <location type="Target" uri="file:${project_loc:/com.archimatetool.editor.product}/archi2.target"/>
 </locations>
 </target>
