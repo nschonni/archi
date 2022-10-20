@@ -42,7 +42,6 @@ public class CommunicationNetworkFigure extends AbstractTextControlContainerFigu
         graphics.pushState();
         
         Rectangle rect = getBounds().getCopy();
-        
         Rectangle imageBounds = rect.getCopy();
         
         setFigurePositionFromTextPosition(rect);
@@ -59,33 +58,31 @@ public class CommunicationNetworkFigure extends AbstractTextControlContainerFigu
         //graphics.setLineWidth(lineWidth);
         
         int figureMaxSize = Math.min(rect.width, rect.height);
-        int xMargin = (rect.width - figureMaxSize) / 2;
-        int yMargin = (rect.height - figureMaxSize) / 2;
+        float diameter = Math.min(40, figureMaxSize / 6f);
         
-        float diameter = Math.min(25, figureMaxSize / 6f);
-        float radius = diameter / 2f;
+        int heightOffset = (int)(figureMaxSize / 3.5);
+        int widthOffset = (int)(figureMaxSize / 3);
         
-        graphics.drawRectangle(rect.x + xMargin,
-                rect.y + yMargin + (figureMaxSize / 4),
-                figureMaxSize,
-                figureMaxSize / 4 * 2);
+        Point center = rect.getCenter();
+        int x = center.x - widthOffset;
+        int y = center.y - heightOffset;
+        int w = widthOffset * 2;
+        int h = heightOffset * 2;
+        
+        //graphics.drawRectangle(x, y, w, h);
         
         Path path = new Path(null);
         
-        path.addArc(rect.x + xMargin + 0,
-                rect.y + yMargin + (figureMaxSize / 2),
+        path.addArc(x, y + h - diameter,
                 diameter, diameter, 0, 360);
     
-        path.addArc(rect.x + xMargin + (figureMaxSize / 2),
-                rect.y + yMargin + (figureMaxSize / 2),
+        path.addArc(x + (w /2), y + h - diameter,
                 diameter, diameter, 0, 360);
     
-        path.addArc(rect.x + xMargin + diameter * 2,
-                rect.y + yMargin + (figureMaxSize / 4),
+        path.addArc(x + (w /4), y,
                 diameter, diameter, 0, 360);
     
-        path.addArc(rect.x + xMargin + (figureMaxSize / 2) + diameter * 2,
-                rect.y + yMargin + (figureMaxSize / 4),
+        path.addArc(x + w - diameter, y,
                 diameter, diameter, 0, 360);
     
         graphics.fillPath(path);
