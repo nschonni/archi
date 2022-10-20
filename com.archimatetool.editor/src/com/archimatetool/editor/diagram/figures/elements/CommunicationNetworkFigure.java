@@ -43,18 +43,50 @@ public class CommunicationNetworkFigure extends AbstractTextControlContainerFigu
         
         Rectangle rect = getBounds().getCopy();
         
+        Rectangle imageBounds = rect.getCopy();
+        
+        setFigurePositionFromTextPosition(rect);
+        
         if(!isEnabled()) {
             setDisabledState(graphics);
         }
         
         graphics.setAlpha(getLineAlpha());
         graphics.setForegroundColor(getLineColor());
+        graphics.setBackgroundColor(getLineColor());
         
+        int lineWidth = (int)Math.max(7, (Math.sqrt(rect.width * rect.height) / 16d));
+        graphics.setLineWidth(lineWidth);
         
-        // TODO...
+        int figureMaxSize = Math.min(rect.width, rect.height);
+        int xMargin = (rect.width - figureMaxSize) / 2;
+        int yMargin = (rect.height - figureMaxSize) / 2;
+        float diameter = Math.min(25, figureMaxSize / 6f);
+        float radius = diameter / 2f;
+        
+        Path path = new Path(null);
+        
+        path.addArc(rect.x + xMargin + diameter * 2,
+                    rect.y + yMargin + (figureMaxSize / 4),
+                    diameter, diameter, 0, 360);
+        
+        path.addArc(rect.x + xMargin + (figureMaxSize / 2) + diameter * 2,
+                rect.y + yMargin + (figureMaxSize / 4),
+                diameter, diameter, 0, 360);
+        
+        path.addArc(rect.x + xMargin + 0,
+                rect.y + yMargin + (figureMaxSize / 2),
+                diameter, diameter, 0, 360);
+        
+        path.addArc(rect.x + xMargin + (figureMaxSize / 2),
+                rect.y + yMargin + (figureMaxSize / 2),
+                diameter, diameter, 0, 360);
+
+        graphics.fillPath(path);
+        path.dispose();
         
         // Image Icon
-        drawIconImage(graphics, rect, 0, 0, 0, 0);
+        drawIconImage(graphics, imageBounds, 0, 0, 0, 0);
         
         graphics.popState();
     }
