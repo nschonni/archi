@@ -55,33 +55,39 @@ public class CommunicationNetworkFigure extends AbstractTextControlContainerFigu
         graphics.setForegroundColor(getLineColor());
         graphics.setBackgroundColor(getLineColor());
         
-        int lineWidth = (int)Math.max(7, (Math.sqrt(rect.width * rect.height) / 16d));
-        graphics.setLineWidth(lineWidth);
+        int lineWidth = (int)Math.max(4, (Math.sqrt(rect.width * rect.height) / 24d));
+        //graphics.setLineWidth(lineWidth);
         
         int figureMaxSize = Math.min(rect.width, rect.height);
         int xMargin = (rect.width - figureMaxSize) / 2;
         int yMargin = (rect.height - figureMaxSize) / 2;
+        
         float diameter = Math.min(25, figureMaxSize / 6f);
         float radius = diameter / 2f;
         
-        Path path = new Path(null);
-        
-        path.addArc(rect.x + xMargin + diameter * 2,
-                    rect.y + yMargin + (figureMaxSize / 4),
-                    diameter, diameter, 0, 360);
-        
-        path.addArc(rect.x + xMargin + (figureMaxSize / 2) + diameter * 2,
+        graphics.drawRectangle(rect.x + xMargin,
                 rect.y + yMargin + (figureMaxSize / 4),
-                diameter, diameter, 0, 360);
+                figureMaxSize,
+                figureMaxSize / 4 * 2);
+        
+        Path path = new Path(null);
         
         path.addArc(rect.x + xMargin + 0,
                 rect.y + yMargin + (figureMaxSize / 2),
                 diameter, diameter, 0, 360);
-        
+    
         path.addArc(rect.x + xMargin + (figureMaxSize / 2),
                 rect.y + yMargin + (figureMaxSize / 2),
                 diameter, diameter, 0, 360);
-
+    
+        path.addArc(rect.x + xMargin + diameter * 2,
+                rect.y + yMargin + (figureMaxSize / 4),
+                diameter, diameter, 0, 360);
+    
+        path.addArc(rect.x + xMargin + (figureMaxSize / 2) + diameter * 2,
+                rect.y + yMargin + (figureMaxSize / 4),
+                diameter, diameter, 0, 360);
+    
         graphics.fillPath(path);
         path.dispose();
         
